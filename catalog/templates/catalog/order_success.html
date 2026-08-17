@@ -1,0 +1,36 @@
+{% extends 'catalog/base.html' %}
+{% block title %}Заказ оформлен{% endblock %}
+
+{% block content %}
+<section class="container py-5">
+    <div class="text-center mx-auto" style="max-width: 560px;">
+        <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem;"></i>
+        <h1 class="h3 mt-3 mb-2">Спасибо за заказ!</h1>
+        <p class="text-secondary mb-4">
+            Заказ <strong>№{{ order.pk }}</strong> успешно создан. Мы свяжемся с вами
+            в ближайшее время для подтверждения.
+        </p>
+
+        <div class="card text-start p-4 mb-4">
+            <h2 class="h6 fw-bold mb-3">Детали заказа</h2>
+            <div class="row small">
+                <div class="col-6 text-secondary">Получатель:</div>
+                <div class="col-6 text-end">{{ order.name }}</div>
+                <div class="col-6 text-secondary mt-2">Телефон:</div>
+                <div class="col-6 text-end mt-2">{{ order.phone }}</div>
+                <div class="col-6 text-secondary mt-2">Адрес:</div>
+                <div class="col-6 text-end mt-2">{{ order.address }}</div>
+                <div class="col-6 text-secondary mt-2">Статус:</div>
+                <div class="col-6 text-end mt-2">
+                    <span class="badge text-bg-info">{{ order.get_status_display }}</span>
+                </div>
+                <hr class="my-3">
+                <div class="col-6 text-secondary">Сумма:</div>
+                <div class="col-6 text-end fw-bold">{{ order.total }} ₽</div>
+            </div>
+        </div>
+
+        <a href="{% url 'catalog:catalog' %}" class="btn btn-primary btn-lg">Продолжить покупки</a>
+    </div>
+</section>
+{% endblock %}

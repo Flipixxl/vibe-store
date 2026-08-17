@@ -1,0 +1,79 @@
+{% extends 'catalog/base.html' %}
+{% block title %}Корзина{% endblock %}
+
+{% block content %}
+<section class="container py-4">
+    <h1 class="h3 mb-4">Корзина</h1>
+
+    {% if cart %}
+    <div class="table-responsive">
+        <table class="table align-middle bg-white shadow-sm rounded-3">
+            <thead class="table-light">
+                <tr>
+                    <th>Товар</th>
+                    <th class="text-center">Цена</th>
+                    <th class="text-center">Количество</th>
+                    <th class="text-end">Сумма</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart %}
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="cart-img">
+                            <div>
+                                <a href="{{ item.product.get_absolute_url }}" class="text-decoration-none fw-medium">
+                                    {{ item.product.name }}
+                                </a>
+                                <div class="small text-secondary">{{ item.product.category.name }}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center">{{ item.price }} ₽</td>
+                    <td>
+                        <form action="{% url 'catalog:cart_update' item.product.id %}" method="post"
+                              class="d-flex justify-content-center align-items-center gap-2">
+                            {% csrf_token %}
+                            <input type="number" name="quantity" min="1" value="{{ item.quantity }}"
+                                   class="form-control form-control-sm cart-quantity" onchange="this.form.submit()">
+                        </form>
+                    </td>
+                    <td class="text-end fw-bold">{{ item.total }} ₽</td>
+                    <td class="text-end">
+                        <a href="{% url 'catalog:cart_remove' item.product.id %}" class="btn btn-sm btn-outline-danger"
+                           title="Удалить">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-end fw-bold fs-5">Итого:</td>
+                    <td colspan="2" class="text-end fw-bold fs-5 price">{{ cart.total_price }} ₽</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <a href="{% url 'catalog:catalog' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Продолжить покупки
+        </a>
+        <a href="{% url 'catalog:checkout' %}" class="btn btn-primary btn-lg">
+            Оформить заказ <i class="bi bi-arrow-right"></i>
+        </a>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <i class="bi bi-cart-x" style="font-size: 4rem; color: #adb5bd;"></i>
+        <h2 class="h5 mt-3">Корзина пуста</h2>
+        <p class="text-secondary">Добавьте товары из каталога</p>
+        <a href="{% url 'catalog:catalog' %}" class="btn btn-primary">Перейти в каталог</a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

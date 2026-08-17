@@ -1,0 +1,59 @@
+{% extends 'catalog/base.html' %}
+{% block title %}О нас{% endblock %}
+
+{% block content %}
+<section class="container py-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'catalog:home' %}">Главная</a></li>
+            <li class="breadcrumb-item active">О нас</li>
+        </ol>
+    </nav>
+
+    <h1 class="h3 mb-4">О нас</h1>
+
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <p>
+                <strong>Vibe Store</strong> — учебный интернет-магазин, созданный как
+                портфолио-проект на Django. Здесь показан полный цикл e-commerce:
+                каталог с фильтрами и поиском, корзина на сессиях, оформление заказов
+                и администрирование.
+            </p>
+            <p>
+                Мы выбираем только качественные товары в трёх категориях —
+                электроника, одежда и товары для дома — и доставляем их по всей стране.
+            </p>
+            <h2 class="h5 mt-4">Почему выбирают нас</h2>
+            <ul class="list-unstyled">
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Быстрая доставка за 1–3 дня</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Официальная гарантия на всю технику</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Простая оплата и возврат</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Поддержка 24/7</li>
+            </ul>
+        </div>
+        <div class="col-lg-5">
+            <div class="card p-4">
+                <h2 class="h5 mb-3">Технологии проекта</h2>
+                <ul class="list-unstyled small">
+                    <li class="mb-2">
+                        <i class="bi bi-database text-primary me-2"></i>Django 6 + SQLite
+                    </li>
+                    <li class="mb-2">
+                        <i class="bi bi-braces text-primary me-2"></i>HTML / CSS / JS
+                    </li>
+                    <li class="mb-2">
+                        <i class="bi bi-grid-1x2 text-primary me-2"></i>Bootstrap 5 — адаптивная вёрстка
+                    </li>
+                    <li class="mb-2">
+                        <i class="bi bi-shield-lock text-primary me-2"></i>Админ-панель Django
+                    </li>
+                    <li class="mb-2">
+                        <i class="bi bi-cart text-primary me-2"></i>Корзина на серверных сессиях
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
