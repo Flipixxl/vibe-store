@@ -1,52 +1,51 @@
 {% extends 'catalog/base.html' %}
-{% block title %}Оформление заказа{% endblock %}
+{% block title %}Оформление заказа — VIBE STORE{% endblock %}
 
 {% block content %}
-<section class="container py-4">
-    <h1 class="h3 mb-4">Оформление заказа</h1>
+<section class="page">
+    <div class="container">
+        <nav class="breadcrumbs reveal">
+            <a href="{% url 'catalog:home' %}">Главная</a>
+            <span class="sep">/</span>
+            <a href="{% url 'catalog:cart' %}">Корзина</a>
+            <span class="sep">/</span>
+            <span>Оформление</span>
+        </nav>
 
-    <div class="row g-4">
-        <div class="col-lg-7">
-            <div class="card p-4">
-                <h2 class="h5 mb-3">Контактные данные</h2>
+        <h1 class="page-title reveal">Оформление заказа</h1>
+        <p class="page-sub reveal delay-1">Остался последний шаг — заполните форму.</p>
+
+        <div class="checkout-grid">
+            <div class="glass reveal reveal-left">
+                <h2>Контактные данные</h2>
                 <form method="post" novalidate>
                     {% csrf_token %}
                     {% for field in form %}
-                    <div class="mb-3">
-                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                         {{ field }}
                         {% if field.errors %}
-                        <div class="text-danger small mt-1">
-                            {% for error in field.errors %}{{ error }}{% endfor %}
-                        </div>
+                        <div class="form-error">{% for error in field.errors %}{{ error }}{% endfor %}</div>
                         {% endif %}
                     </div>
                     {% endfor %}
-                    <button type="submit" class="btn btn-primary btn-lg w-100 mt-2">
-                        Подтвердить заказ
-                    </button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Подтвердить заказ ⚡</button>
                 </form>
             </div>
-        </div>
 
-        <div class="col-lg-5">
-            <div class="card p-4">
-                <h2 class="h5 mb-3">Ваш заказ</h2>
-                <ul class="list-unstyled mb-3">
-                    {% for item in cart %}
-                    <li class="d-flex justify-content-between py-2 border-bottom">
-                        <span>{{ item.product.name }} × {{ item.quantity }}</span>
-                        <span class="fw-medium">{{ item.total }} ₽</span>
-                    </li>
-                    {% endfor %}
-                </ul>
-                <div class="d-flex justify-content-between fs-5 fw-bold">
-                    <span>Итого:</span>
-                    <span class="price">{{ cart.total_price }} ₽</span>
+            <div class="glass reveal reveal-right delay-1">
+                <h2>Ваш заказ</h2>
+                {% for item in cart %}
+                <div class="order-summary-item">
+                    <span class="q">{{ item.product.name }} × {{ item.quantity }}</span>
+                    <span>{{ item.total }} ₽</span>
                 </div>
-                <a href="{% url 'catalog:cart' %}" class="btn btn-outline-secondary mt-3">
-                    <i class="bi bi-arrow-left"></i> Вернуться в корзину
-                </a>
+                {% endfor %}
+                <div class="order-summary-total">
+                    <span>Итого</span>
+                    <span class="amount">{{ cart.total_price }} ₽</span>
+                </div>
+                <a href="{% url 'catalog:cart' %}" class="btn btn-ghost" style="margin-top:18px;">← Вернуться в корзину</a>
             </div>
         </div>
     </div>

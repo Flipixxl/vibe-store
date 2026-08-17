@@ -1,57 +1,86 @@
 {% extends 'catalog/base.html' %}
-{% block title %}О нас{% endblock %}
+{% block title %}О нас — VIBE STORE{% endblock %}
 
 {% block content %}
-<section class="container py-4">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'catalog:home' %}">Главная</a></li>
-            <li class="breadcrumb-item active">О нас</li>
-        </ol>
-    </nav>
+<section class="page">
+    <div class="container">
+        <nav class="breadcrumbs reveal">
+            <a href="{% url 'catalog:home' %}">Главная</a>
+            <span class="sep">/</span>
+            <span>О нас</span>
+        </nav>
 
-    <h1 class="h3 mb-4">О нас</h1>
+        <h1 class="page-title reveal">О нас</h1>
+        <p class="page-sub reveal delay-1">Магазин, где технологии встречаются со стилем.</p>
 
-    <div class="row g-4">
-        <div class="col-lg-7">
-            <p>
-                <strong>Vibe Store</strong> — учебный интернет-магазин, созданный как
-                портфолио-проект на Django. Здесь показан полный цикл e-commerce:
-                каталог с фильтрами и поиском, корзина на сессиях, оформление заказов
-                и администрирование.
-            </p>
-            <p>
-                Мы выбираем только качественные товары в трёх категориях —
-                электроника, одежда и товары для дома — и доставляем их по всей стране.
-            </p>
-            <h2 class="h5 mt-4">Почему выбирают нас</h2>
-            <ul class="list-unstyled">
-                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Быстрая доставка за 1–3 дня</li>
-                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Официальная гарантия на всю технику</li>
-                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Простая оплата и возврат</li>
-                <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Поддержка 24/7</li>
-            </ul>
-        </div>
-        <div class="col-lg-5">
-            <div class="card p-4">
-                <h2 class="h5 mb-3">Технологии проекта</h2>
-                <ul class="list-unstyled small">
-                    <li class="mb-2">
-                        <i class="bi bi-database text-primary me-2"></i>Django 6 + SQLite
-                    </li>
-                    <li class="mb-2">
-                        <i class="bi bi-braces text-primary me-2"></i>HTML / CSS / JS
-                    </li>
-                    <li class="mb-2">
-                        <i class="bi bi-grid-1x2 text-primary me-2"></i>Bootstrap 5 — адаптивная вёрстка
-                    </li>
-                    <li class="mb-2">
-                        <i class="bi bi-shield-lock text-primary me-2"></i>Админ-панель Django
-                    </li>
-                    <li class="mb-2">
-                        <i class="bi bi-cart text-primary me-2"></i>Корзина на серверных сессиях
-                    </li>
-                </ul>
+        <div class="split-grid">
+            <div class="reveal reveal-left">
+                <p style="font-size:17px; margin-bottom:16px;">
+                    <strong>VIBE STORE</strong> — учебный интернет-магазин, созданный как портфолио-проект
+                    на Django. Здесь показан полный цикл e-commerce: каталог с фильтрами и поиском,
+                    корзина на сессиях, оформление заказов и администрирование.
+                </p>
+                <p style="color:var(--text-muted); margin-bottom:10px;">
+                    Мы выбираем только качественные товары в трёх категориях — электроника, одежда
+                    и товары для дома — и доставляем их по всей стране.
+                </p>
+
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <span class="icon">⚡</span>
+                        <div>
+                            <h4>Быстрая доставка</h4>
+                            <p>Получите заказ за 1–3 дня</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">🛡️</span>
+                        <div>
+                            <h4>Гарантия качества</h4>
+                            <p>Официальная гарантия на всю технику</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">🔄</span>
+                        <div>
+                            <h4>Простой возврат</h4>
+                            <p>Верните товар в течение 14 дней</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">💬</span>
+                        <div>
+                            <h4>Поддержка 24/7</h4>
+                            <p>Мы на связи в любое время</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass reveal reveal-right delay-1">
+                <h2>Технологии проекта</h2>
+                <div class="feature-list" style="margin-top:0;">
+                    <div class="feature-item">
+                        <span class="icon">🐍</span>
+                        <div><h4>Django 6 + SQLite</h4><p>Бэкенд и база данных</p></div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">🎨</span>
+                        <div><h4>Кастомный CSS</h4><p>Неоновая тема без фреймворков</p></div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">✨</span>
+                        <div><h4>Анимации</h4><p>Reveal on scroll, parallax, tilt</p></div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">🛒</span>
+                        <div><h4>Корзина на сессиях</h4><p>Без авторизации</p></div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="icon">🔐</span>
+                        <div><h4>Админ-панель</h4><p>Управление заказами и товарами</p></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -1,75 +1,71 @@
 {% extends 'catalog/base.html' %}
-{% block title %}Контакты{% endblock %}
+{% block title %}Контакты — VIBE STORE{% endblock %}
 
 {% block content %}
-<section class="container py-4">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'catalog:home' %}">Главная</a></li>
-            <li class="breadcrumb-item active">Контакты</li>
-        </ol>
-    </nav>
+<section class="page">
+    <div class="container">
+        <nav class="breadcrumbs reveal">
+            <a href="{% url 'catalog:home' %}">Главная</a>
+            <span class="sep">/</span>
+            <span>Контакты</span>
+        </nav>
 
-    <h1 class="h3 mb-4">Контакты</h1>
+        <h1 class="page-title reveal">Контакты</h1>
+        <p class="page-sub reveal delay-1">Мы всегда на связи — напишите нам.</p>
 
-    <div class="row g-4">
-        <div class="col-lg-5">
-            <div class="card p-4">
-                <h2 class="h6 fw-bold mb-3">Свяжитесь с нами</h2>
-                <ul class="list-unstyled">
-                    <li class="d-flex gap-3 mb-3">
-                        <i class="bi bi-telephone-fill contact-icon"></i>
-                        <div>
-                            <div class="fw-medium">Телефон</div>
-                            <a href="tel:+78001234567" class="text-decoration-none">+7 (800) 123-45-67</a>
-                        </div>
-                    </li>
-                    <li class="d-flex gap-3 mb-3">
-                        <i class="bi bi-envelope-fill contact-icon"></i>
-                        <div>
-                            <div class="fw-medium">Email</div>
-                            <a href="mailto:support@vibestore.ru" class="text-decoration-none">support@vibestore.ru</a>
-                        </div>
-                    </li>
-                    <li class="d-flex gap-3 mb-3">
-                        <i class="bi bi-geo-alt-fill contact-icon"></i>
-                        <div>
-                            <div class="fw-medium">Адрес</div>
-                            <span>г. Москва, ул. Тверская, д. 1</span>
-                        </div>
-                    </li>
-                    <li class="d-flex gap-3">
-                        <i class="bi bi-clock-fill contact-icon"></i>
-                        <div>
-                            <div class="fw-medium">Режим работы</div>
-                            <span>Ежедневно с 9:00 до 21:00</span>
-                        </div>
-                    </li>
-                </ul>
+        <div class="split-grid">
+            <div class="glass contact-card reveal reveal-left">
+                <h2 style="margin-bottom:6px;">Свяжитесь с нами</h2>
+                <div class="contact-line">
+                    <span class="icon">📞</span>
+                    <div>
+                        <div class="k">Телефон</div>
+                        <div class="v"><a href="tel:+78001234567">+7 (800) 123-45-67</a></div>
+                    </div>
+                </div>
+                <div class="contact-line">
+                    <span class="icon">✉️</span>
+                    <div>
+                        <div class="k">Email</div>
+                        <div class="v"><a href="mailto:support@vibestore.ru">support@vibestore.ru</a></div>
+                    </div>
+                </div>
+                <div class="contact-line">
+                    <span class="icon">📍</span>
+                    <div>
+                        <div class="k">Адрес</div>
+                        <div class="v">г. Москва, ул. Тверская, д. 1</div>
+                    </div>
+                </div>
+                <div class="contact-line">
+                    <span class="icon">🕘</span>
+                    <div>
+                        <div class="k">Режим работы</div>
+                        <div class="v">Ежедневно с 9:00 до 21:00</div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-7">
-            <div class="card p-4">
-                <h2 class="h6 fw-bold mb-3">Напишите нам</h2>
+
+            <div class="glass reveal reveal-right delay-1">
+                <h2>Напишите нам</h2>
                 <form method="post" action="{% url 'catalog:contacts' %}">
                     {% csrf_token %}
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <input type="text" name="name" class="form-control" placeholder="Ваше имя" required>
-                        </div>
-                        <div class="col-md-6">
-                            <input type="email" name="email" class="form-control" placeholder="Ваш email" required>
-                        </div>
-                        <div class="col-12">
-                            <textarea name="message" class="form-control" rows="4"
-                                      placeholder="Ваше сообщение" required></textarea>
-                        </div>
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Отправить</button>
-                        </div>
+                    <div class="form-group">
+                        <label for="c-name">Имя</label>
+                        <input type="text" id="c-name" name="name" class="form-input" placeholder="Ваше имя" required>
                     </div>
+                    <div class="form-group">
+                        <label for="c-email">Email</label>
+                        <input type="email" id="c-email" name="email" class="form-input" placeholder="mail@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="c-msg">Сообщение</label>
+                        <textarea id="c-msg" name="message" class="form-input" rows="4"
+                                  placeholder="Ваше сообщение..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Отправить ✈️</button>
                 </form>
-                <p class="text-secondary small mt-3 mb-0">
+                <p style="color:var(--text-muted); font-size:12px; margin-top:12px; text-align:center;">
                     Это демо-форма для портфолио — сообщения никуда не отправляются.
                 </p>
             </div>

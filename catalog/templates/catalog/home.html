@@ -1,70 +1,100 @@
 {% extends 'catalog/base.html' %}
-{% block title %}Vibe Store — интернет-магазин{% endblock %}
+{% block title %}VIBE STORE — интернет-магазин{% endblock %}
 
 {% block content %}
-<section class="container py-5">
-    <div class="hero p-4 p-md-5 mb-5">
-        <div class="row align-items-center g-4">
-            <div class="col-lg-7">
-                <h1 class="display-5 fw-bold mb-3">Всё нужное — в одном месте</h1>
-                <p class="lead mb-4">
-                    Электроника, одежда и товары для дома с быстрой доставкой.
-                    Оформление заказа за пару минут.
+<section class="hero">
+    <div class="container">
+        <div class="hero-grid">
+            <div class="hero-copy">
+                <h1 class="reveal">
+                    Всё нужное —
+                    <span class="grad-text">в одном месте</span>
+                </h1>
+                <p class="hero-sub reveal delay-1">
+                    Электроника, одежда и товары для дома с неоновым сервисом.
+                    Оформление заказа за пару минут, доставка по всей стране.
                 </p>
-                <a href="{% url 'catalog:catalog' %}" class="btn btn-warning btn-lg">
-                    <i class="bi bi-bag-check"></i> Перейти в каталог
-                </a>
+                <div class="hero-cta reveal delay-2">
+                    <a href="{% url 'catalog:catalog' %}" class="btn btn-primary">
+                        Смотреть каталог <span>→</span>
+                    </a>
+                    <a href="{% url 'catalog:about' %}" class="btn btn-ghost">О магазине</a>
+                </div>
+                <div class="hero-stats reveal delay-3">
+                    <div class="stat">
+                        <span class="stat-num grad-cyan" data-count="{{ categories|length }}">0</span>
+                        <span class="stat-label">категории</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-num grad-cyan" data-count="12" data-suffix="+">0</span>
+                        <span class="stat-label">товаров</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-num grad-cyan" data-count="24" data-suffix="/7">0</span>
+                        <span class="stat-label">поддержка</span>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-5 text-center d-none d-md-block">
-                <i class="bi bi-bag-heart" style="font-size: 8rem; opacity: .25;"></i>
+            <div class="hero-visual reveal reveal-zoom delay-2">
+                <div class="hero-orbit" data-parallax>
+                    <div class="orbit-ring r1"></div>
+                    <div class="orbit-ring r2"></div>
+                    <div class="orbit-dot d1"></div>
+                    <div class="orbit-dot d2"></div>
+                    <div class="orbit-dot d3"></div>
+                    <div class="orbit-icon">🛍️</div>
+                </div>
             </div>
         </div>
     </div>
+</section>
 
-    <h2 class="h4 mb-3">Категории</h2>
-    <div class="row g-4 mb-5">
+<section class="container" style="padding-bottom: 0;">
+    <div class="section-head reveal">
+        <h2 class="section-title">Категории</h2>
+    </div>
+    <div class="category-grid">
         {% for category in categories %}
-        <div class="col-6 col-md-4 col-lg-4">
-            <a href="{% url 'catalog:catalog' %}?category={{ category.slug }}"
-               class="card h-100 text-center p-4 text-decoration-none">
-                <div class="text-primary" style="font-size: 3rem;">
-                    {% if category.slug == 'electronics' %}<i class="bi bi-lightning-charge-fill"></i>
-                    {% elif category.slug == 'clothes' %}<i class="bi bi-tag-fill"></i>
-                    {% else %}<i class="bi bi-house-heart-fill"></i>{% endif %}
-                </div>
-                <h3 class="h6 mt-2 mb-0 text-dark">{{ category.name }}</h3>
-                <span class="small text-secondary">{{ category.products.count }} товаров</span>
-            </a>
-        </div>
+        <a href="{% url 'catalog:catalog' %}?category={{ category.slug }}" class="category-card reveal delay-{{ forloop.counter }}">
+            <span class="category-icon">
+                {% if category.slug == 'electronics' %}⚡
+                {% elif category.slug == 'clothes' %}👕
+                {% else %}🏠{% endif %}
+            </span>
+            <h3>{{ category.name }}</h3>
+            <span class="cat-count">{{ category.products.count }} товаров</span>
+            <span class="cat-arrow">→</span>
+        </a>
         {% endfor %}
     </div>
+</section>
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="h4 mb-0">Хиты продаж</h2>
-        <a href="{% url 'catalog:catalog' %}" class="small">Все товары →</a>
+<section class="container" style="padding-bottom: 40px;">
+    <div class="section-head reveal">
+        <h2 class="section-title">Хиты продаж</h2>
+        <a href="{% url 'catalog:catalog' %}" class="section-link">Все товары →</a>
     </div>
-    <div class="row g-4">
+    <div class="product-grid">
         {% for product in featured %}
-        <div class="col-6 col-md-6 col-lg-3">
-            <div class="card product-card h-100">
-                <a href="{{ product.get_absolute_url }}">
-                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
-                </a>
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title h6">
-                        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
-                    </h5>
-                    <div class="mt-auto d-flex justify-content-between align-items-center">
-                        <span class="price">{{ product.price|floatformat:0 }} ₽</span>
-                        <a href="{% url 'catalog:cart_add' product.id %}" class="btn btn-sm btn-primary">
-                            <i class="bi bi-cart-plus"></i>
-                        </a>
-                    </div>
+        <div class="product-card reveal delay-{{ forloop.counter }}">
+            <a href="{{ product.get_absolute_url }}" class="product-media">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy">
+                <span class="product-badge">{{ product.category.name }}</span>
+            </a>
+            <div class="product-body">
+                <a href="{{ product.get_absolute_url }}" class="product-name">{{ product.name }}</a>
+                <div class="product-bottom">
+                    <span class="price">{{ product.price|floatformat:0 }} <span class="price-suffix">₽</span></span>
+                    <a href="{% url 'catalog:cart_add' product.id %}" class="add-btn" title="В корзину" data-tilt>＋</a>
                 </div>
             </div>
         </div>
         {% empty %}
-        <p class="text-secondary">Товары скоро появятся.</p>
+        <div class="empty-state reveal">
+            <div class="empty-icon">📦</div>
+            <h3>Товары скоро появятся</h3>
+            <p>Мы наполняем витрину новинками.</p>
+        </div>
         {% endfor %}
     </div>
 </section>
