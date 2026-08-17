@@ -162,7 +162,9 @@ class Command(BaseCommand):
 
             filename = f"{product_data['slug']}.png"
             filepath = products_dir / filename
-            self._make_image(filepath, color, product_data['icon'], font_big, font_small)
+            if not filepath.exists():
+                self.stdout.write(f'  ~ генерация заглушки: {filename}')
+                self._make_image(filepath, color, product_data['icon'], font_big, font_small)
 
             Product.objects.update_or_create(
                 slug=product_data['slug'],
