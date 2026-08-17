@@ -1,0 +1,14 @@
+{% extends 'catalog/base.html' %}
+{% block title %}Страница не найдена — VIBE STORE{% endblock %}
+
+{% block content %}
+<section class="error-wrap">
+    <div class="error-code reveal">404</div>
+    <h1 class="reveal delay-1">Такой страницы нет</h1>
+    <p class="reveal delay-2">Похоже, вы забрели не туда. Вернитесь в каталог или на главную.</p>
+    <div class="reveal delay-3" style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
+        <a href="{% url 'catalog:catalog' %}" class="btn btn-primary">В каталог</a>
+        <a href="{% url 'catalog:home' %}" class="btn btn-ghost">На главную</a>
+    </div>
+</section>
+{% endblock %}

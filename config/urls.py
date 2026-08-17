@@ -10,6 +10,9 @@ urlpatterns = [
     path('', include('catalog.urls')),
 ]
 
+handler404 = 'catalog.handlers.page_not_found'
+handler500 = 'catalog.handlers.server_error'
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 else:

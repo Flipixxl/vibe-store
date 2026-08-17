@@ -4,13 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Vibe Store{% endblock %}</title>
+    <title>{% block title %}VIBE STORE{% endblock %}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <script>
+        (function () {
+            var saved = localStorage.getItem('vibe-theme');
+            if (saved === 'light') document.documentElement.classList.add('theme-light');
+        })();
+    </script>
 </head>
 <body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
 
 <header class="site-header" id="siteHeader">
     <div class="container header-inner">
@@ -35,6 +43,9 @@
                 <input type="search" name="q" placeholder="Поиск товаров..." value="{{ query|default:'' }}" aria-label="Поиск">
                 <button type="submit" aria-label="Найти">⌕</button>
             </form>
+            <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
+                <span class="theme-icon">🌙</span>
+            </button>
             <a href="{% url 'catalog:cart' %}" class="cart-btn">
                 <span>🛒</span>
                 <span>Корзина</span>
@@ -94,9 +105,11 @@
     </div>
     <div class="container footer-bottom">
         <span>© 2026 VIBE STORE</span>
-        <span>Django · Bootstrap-free design</span>
+        <span>Django · handcrafted CSS</span>
     </div>
 </footer>
+
+<button class="to-top" id="toTop" aria-label="Наверх">↑</button>
 
 <script src="{% static 'js/main.js' %}"></script>
 {% block extra_js %}{% endblock %}

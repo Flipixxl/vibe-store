@@ -1,6 +1,26 @@
 (function () {
   "use strict";
 
+  var root = document.documentElement;
+
+  /* ---------- Theme toggle ---------- */
+  var themeToggle = document.getElementById("themeToggle");
+  var themeIcon = themeToggle ? themeToggle.querySelector(".theme-icon") : null;
+
+  function applyTheme(light) {
+    root.classList.toggle("theme-light", light);
+    if (themeIcon) themeIcon.textContent = light ? "☀️" : "🌙";
+  }
+
+  if (themeToggle) {
+    applyTheme(root.classList.contains("theme-light"));
+    themeToggle.addEventListener("click", function () {
+      var isLight = root.classList.toggle("theme-light");
+      localStorage.setItem("vibe-theme", isLight ? "light" : "dark");
+      if (themeIcon) themeIcon.textContent = isLight ? "☀️" : "🌙";
+    });
+  }
+
   /* ---------- Reveal on scroll ---------- */
   var revealEls = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window && revealEls.length) {
@@ -42,14 +62,27 @@
     counters.forEach(function (el) { countIO.observe(el); });
   }
 
-  /* ---------- Header scroll state ---------- */
+  /* ---------- Header scroll state + progress + to-top ---------- */
   var header = document.querySelector(".site-header");
-  if (header) {
+  var progress = document.getElementById("scrollProgress");
+  var toTop = document.getElementById("toTop");
+  if (header || progress || toTop) {
     var onScroll = function () {
-      header.classList.toggle("scrolled", window.scrollY > 20);
+      var y = window.scrollY;
+      if (header) header.classList.toggle("scrolled", y > 20);
+      if (progress) {
+        var h = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.width = (h > 0 ? (y / h) * 100 : 0) + "%";
+      }
+      if (toTop) toTop.classList.toggle("show", y > 500);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
+  }
+  if (toTop) {
+    toTop.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
   }
 
   /* ---------- Mobile nav toggle ---------- */
