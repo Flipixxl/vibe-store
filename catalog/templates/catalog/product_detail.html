@@ -16,7 +16,7 @@
 
         <div class="product-detail">
             <div class="detail-media reveal reveal-left" data-tilt>
-                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <img src="{{ product.image.url }}?v=2" alt="{{ product.name }}">
             </div>
 
             <div class="detail-info reveal reveal-right delay-1">
@@ -50,7 +50,7 @@
                 {% for product in related %}
                 <div class="product-card cat-{{ product.category.slug }} reveal delay-{{ forloop.counter }}">
                     <a href="{{ product.get_absolute_url }}" class="product-media">
-                        <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy">
+                        <img src="{{ product.image.url }}?v=2" alt="{{ product.name }}" loading="lazy">
                         <span class="product-badge">{{ product.category.name }}</span>
                     </a>
                     <div class="product-body">
