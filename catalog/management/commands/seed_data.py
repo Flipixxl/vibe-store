@@ -129,28 +129,30 @@ class Command(BaseCommand):
             User.objects.create_superuser('admin', 'admin@example.com', 'admin123')
             self.stdout.write('  + суперпользователь: admin / admin123')
 
-        if Category.objects.exists():
-            self.stdout.write(self.style.WARNING('База уже заполнена, пропускаю.'))
-            return
-
         media_dir = Path(settings.MEDIA_ROOT)
         products_dir = media_dir / 'products'
         products_dir.mkdir(parents=True, exist_ok=True)
 
         try:
-            font_path = str(Path(settings.BASE_DIR) / 'static' / 'DejaVuSans.ttf')
-            if not Path(font_path).exists():
-                font_path = 'C:/Windows/Fonts/arial.ttf'
+            font_path = None
+            for candidate in [
+                Path(settings.BASE_DIR) / 'static' / 'DejaVuSans.ttf',
+                Path('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'),
+                Path('C:/Windows/Fonts/arial.ttf'),
+            ]:
+                if candidate.exists():
+                    font_path = str(candidate)
+                    break
             font_big = ImageFont.truetype(font_path, 90)
             font_small = ImageFont.truetype(font_path, 36)
-        except OSError:
+        except (OSError, TypeError):
             font_big = ImageFont.load_default()
             font_small = ImageFont.load_default()
 
         categories = {}
         for cat in CATEGORIES:
-            categories[cat['slug']] = Category.objects.create(
-                name=cat['name'], slug=cat['slug'],
+            categories[cat['slug']], _ = Category.objects.get_or_create(
+                slug=cat['slug'], defaults={'name': cat['name']},
             )
             self.stdout.write(f'  + категория: {cat["name"]}')
 
@@ -162,14 +164,16 @@ class Command(BaseCommand):
             filepath = products_dir / filename
             self._make_image(filepath, color, product_data['icon'], font_big, font_small)
 
-            Product.objects.create(
-                category=cat,
-                name=product_data['name'],
+            Product.objects.update_or_create(
                 slug=product_data['slug'],
-                description=product_data['description'],
-                price=product_data['price'],
-                image=f'products/{filename}',
-                stock=product_data['stock'],
+                defaults={
+                    'category': cat,
+                    'name': product_data['name'],
+                    'description': product_data['description'],
+                    'price': product_data['price'],
+                    'image': f'products/{filename}',
+                    'stock': product_data['stock'],
+                },
             )
             self.stdout.write(f'  + товар: {product_data["name"]}')
 
