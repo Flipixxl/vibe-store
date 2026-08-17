@@ -90,7 +90,7 @@
         {% for product in featured %}
         <div class="product-card cat-{{ product.category.slug }} reveal delay-{{ forloop.counter }}">
             <a href="{{ product.get_absolute_url }}" class="product-media">
-                <img src="{{ product.image.url }}?v=2" alt="{{ product.name }}" loading="lazy">
+                <img src="{{ product.image.url }}?v=3" alt="{{ product.name }}" loading="lazy">
                 <span class="product-badge">{{ product.category.name }}</span>
             </a>
             <div class="product-body">

@@ -25,7 +25,7 @@
             {% for item in cart %}
             <div class="cart-row">
                 <div class="cart-prod">
-                    <img src="{{ item.product.image.url }}?v=2" alt="{{ item.product.name }}">
+                    <img src="{{ item.product.image.url }}?v=3" alt="{{ item.product.name }}">
                     <div>
                         <a href="{{ item.product.get_absolute_url }}" class="cart-prod-name">{{ item.product.name }}</a>
                         <div class="cart-prod-cat">{{ item.product.category.name }}</div>
