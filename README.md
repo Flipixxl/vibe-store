@@ -97,16 +97,72 @@ shop/
 Для полного цикла: добавьте товар в корзину → оформите заказ → откройте
 админку и поменяйте статус заказа.
 
-## Деплой на Render (бесплатно)
+## Деплой на PythonAnywhere (бесплатно, доступно из РФ)
+
+### Шаг 1. Регистрация
+1. Зарегистрируйтесь на [pythonanywhere.com](https://www.pythonanywhere.com) — бесплатный тариф Beginner
+2. Подтвердите email
+
+### Шаг 2. Установка кода (Bash-консоль)
+В правом верхнем углу: **Consoles** → **Bash**. Вставьте команды из
+`deploy_pythonanywhere.sh` (или вручную):
+
+```bash
+cd ~
+git clone https://github.com/Flipixxl/vibe-store.git
+cd vibe-store
+python3.13 -m venv venv 2>/dev/null || python3.12 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py seed_data
+python manage.py collectstatic --noinput
+```
+
+### Шаг 3. Создание веб-приложения
+Вкладка **Web** → **Add a new web app**:
+1. **Manual configuration** → Python 3.13 (или 3.12)
+2. В разделе **Virtualenv**: укажите путь
+   `/home/<ВАШ_ЛОГИН>/vibe-store/venv` и нажмите кнопку
+   «Enter path… / click to set»
+3. В разделе **Code**: откройте WSGI-файл и замените содержимое на:
+
+```python
+import os
+import sys
+
+sys.path.insert(0, '/home/<ВАШ_ЛОГИН>/vibe-store')
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'config.settings'
+
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+```
+
+4. В разделе **Environment variables** добавьте:
+
+| Имя                   | Значение                                    |
+|-----------------------|---------------------------------------------|
+| `DJANGO_DEBUG`        | `False`                                     |
+| `DJANGO_ALLOWED_HOSTS`| `<ВАШ_ЛОГИН>.pythonanywhere.com`            |
+| `DJANGO_SECRET_KEY`   | любой длинный случайный набор символов      |
+
+5. Нажмите **Reload** (зелёная кнопка сверху)
+
+Готово! Сайт будет доступен по адресу:
+**https://<ВАШ_ЛОГИН>.pythonanywhere.com** (админка `/admin/`, логин `admin`,
+пароль `admin123`).
+
+> Статические файлы и картинки раздаёт сам Django через WhiteNoise —
+> дополнительные настройки статики во вкладке Web не нужны.
+
+### Альтернатива: деплой на Render (Blueprint)
 
 Репозиторий содержит `render.yaml` — развёртывание в один клик через Blueprint:
 
 1. Зарегистрируйтесь на [render.com](https://render.com) (или войдите через GitHub)
 2. Нажмите **New +** → **Blueprint**
 3. Подключите репозиторий **vibe-store** и нажмите **Apply**
-4. Render прочитает `render.yaml` и сам запустит миграции,
-   сгенерирует демо-данные (включая изображения) и поднимет сайт на
-   `https://vibe-store.onrender.com`
 
 Полезные переменные окружения (уже заданы в `render.yaml`):
 
@@ -116,7 +172,8 @@ shop/
 | `DJANGO_DEBUG`        | `False` в проде                     |
 | `DJANGO_ALLOWED_HOSTS`| домены сайта через запятую          |
 
-Данные хранятся в SQLite на эфемерном диске Render — при каждом деплое
-база пересоздаётся из демо-данных (для портфолио это плюс: заказы не
-засоряются). Для продакшена подключите PostgreSQL через Render.
+Данные хранятся в SQLite на эфемерном диске — при каждом деплое база
+пересоздаётся из демо-данных (для портфолио это плюс: заказы не засоряются).
+Для продакшена подключите PostgreSQL через Render.
+
 
