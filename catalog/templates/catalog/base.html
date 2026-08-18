@@ -12,7 +12,7 @@
     <script>
         (function () {
             var saved = localStorage.getItem('vibe-theme');
-            if (saved === 'light') document.documentElement.classList.add('theme-light');
+            if (saved === 'dark') document.documentElement.classList.add('theme-dark');
         })();
     </script>
 </head>
@@ -23,8 +23,8 @@
 <header class="site-header" id="siteHeader">
     <div class="container header-inner">
         <a class="logo" href="{% url 'catalog:home' %}">
-            <span class="logo-mark">✦</span>
-            VIBE<span class="grad-text">STORE</span>
+            <span class="logo-mark">✳</span>
+            <span class="logo-text">VIBE<span class="inv">STORE</span></span>
         </a>
 
         <nav class="main-nav">
@@ -41,13 +41,16 @@
         <div class="header-actions">
             <form class="search-form" action="{% url 'catalog:catalog' %}" method="get" role="search">
                 <input type="search" name="q" placeholder="Поиск товаров..." value="{{ query|default:'' }}" aria-label="Поиск">
-                <button type="submit" aria-label="Найти">⌕</button>
+                <button type="submit" aria-label="Найти">{% include 'catalog/_icon.html' with icon='search' %}</button>
             </form>
             <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему">
-                <span class="theme-icon">🌙</span>
+                <span class="theme-icon">
+                    {% include 'catalog/_icon.html' with icon='moon' %}
+                    <span class="ico-sun">{% include 'catalog/_icon.html' with icon='sun' %}</span>
+                </span>
             </button>
             <a href="{% url 'catalog:cart' %}" class="cart-btn">
-                <span>🛒</span>
+                <span>{% include 'catalog/_icon.html' with icon='cart' %}</span>
                 <span>Корзина</span>
                 {% if cart_count %}<span class="cart-badge">{{ cart_count }}</span>{% endif %}
             </a>
@@ -84,8 +87,8 @@
     <div class="container footer-inner">
         <div class="footer-about">
             <a class="logo" href="{% url 'catalog:home' %}">
-                <span class="logo-mark">✦</span>
-                VIBE<span class="grad-text">STORE</span>
+                <span class="logo-mark">✳</span>
+                <span class="logo-text">VIBE<span class="inv">STORE</span></span>
             </a>
             <p>Магазин на Django с корзиной на сессиях, фильтрами и админ-панелью. Проект для портфолио.</p>
         </div>

@@ -17,28 +17,28 @@
             <div class="glass contact-card reveal reveal-left">
                 <h2 style="margin-bottom:6px;">Свяжитесь с нами</h2>
                 <div class="contact-line">
-                    <span class="icon">📞</span>
+                    <span class="icon">{% include 'catalog/_icon.html' with icon='phone' %}</span>
                     <div>
                         <div class="k">Телефон</div>
                         <div class="v"><a href="tel:+78001234567">+7 (800) 123-45-67</a></div>
                     </div>
                 </div>
                 <div class="contact-line">
-                    <span class="icon">✉️</span>
+                    <span class="icon">{% include 'catalog/_icon.html' with icon='mail' %}</span>
                     <div>
                         <div class="k">Email</div>
                         <div class="v"><a href="mailto:support@vibestore.ru">support@vibestore.ru</a></div>
                     </div>
                 </div>
                 <div class="contact-line">
-                    <span class="icon">📍</span>
+                    <span class="icon">{% include 'catalog/_icon.html' with icon='pin' %}</span>
                     <div>
                         <div class="k">Адрес</div>
                         <div class="v">г. Москва, ул. Тверская, д. 1</div>
                     </div>
                 </div>
                 <div class="contact-line">
-                    <span class="icon">🕘</span>
+                    <span class="icon">{% include 'catalog/_icon.html' with icon='clock' %}</span>
                     <div>
                         <div class="k">Режим работы</div>
                         <div class="v">Ежедневно с 9:00 до 21:00</div>
@@ -63,7 +63,7 @@
                         <textarea id="c-msg" name="message" class="form-input" rows="4"
                                   placeholder="Ваше сообщение..." required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">Отправить ✈️</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Отправить {% include 'catalog/_icon.html' with icon='arrow' %}</button>
                 </form>
                 <p style="color:var(--text-muted); font-size:12px; margin-top:12px; text-align:center;">
                     Это демо-форма для портфолио — сообщения никуда не отправляются.

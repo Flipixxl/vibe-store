@@ -5,19 +5,11 @@
 
   /* ---------- Theme toggle ---------- */
   var themeToggle = document.getElementById("themeToggle");
-  var themeIcon = themeToggle ? themeToggle.querySelector(".theme-icon") : null;
-
-  function applyTheme(light) {
-    root.classList.toggle("theme-light", light);
-    if (themeIcon) themeIcon.textContent = light ? "☀️" : "🌙";
-  }
 
   if (themeToggle) {
-    applyTheme(root.classList.contains("theme-light"));
     themeToggle.addEventListener("click", function () {
-      var isLight = root.classList.toggle("theme-light");
-      localStorage.setItem("vibe-theme", isLight ? "light" : "dark");
-      if (themeIcon) themeIcon.textContent = isLight ? "☀️" : "🌙";
+      var isDark = root.classList.toggle("theme-dark");
+      localStorage.setItem("vibe-theme", isDark ? "dark" : "light");
     });
   }
 

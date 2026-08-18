@@ -41,7 +41,7 @@
                 </div>
                 <div class="cart-line-total">{{ item.total }} ₽</div>
                 <div>
-                    <a href="{% url 'catalog:cart_remove' item.product.id %}" class="cart-remove" title="Удалить">✕</a>
+                    <a href="{% url 'catalog:cart_remove' item.product.id %}" class="cart-remove" title="Удалить">{% include 'catalog/_icon.html' with icon='close' %}</a>
                 </div>
             </div>
             {% endfor %}
@@ -57,7 +57,7 @@
         </div>
         {% else %}
         <div class="empty-state reveal">
-            <div class="empty-icon">🛒</div>
+            <div class="empty-icon">{% include 'catalog/_icon.html' with icon='cart' %}</div>
             <h3>Корзина пуста</h3>
             <p>Добавьте товары из каталога, и они появятся здесь.</p>
             <a href="{% url 'catalog:catalog' %}" class="btn btn-primary">Перейти в каталог</a>

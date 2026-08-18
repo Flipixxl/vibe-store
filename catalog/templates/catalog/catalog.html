@@ -86,13 +86,13 @@
                             <p class="product-desc">{{ product.description }}</p>
                             <div class="product-bottom">
                                 <span class="price">{{ product.price|floatformat:0 }} <span class="price-suffix">₽</span></span>
-                                <a href="{% url 'catalog:cart_add' product.id %}" class="add-btn" title="В корзину">＋</a>
+                                <a href="{% url 'catalog:cart_add' product.id %}" class="add-btn" title="В корзину">{% include 'catalog/_icon.html' with icon='plus' %}</a>
                             </div>
                         </div>
                     </div>
                     {% empty %}
                     <div class="empty-state" style="grid-column: 1 / -1;">
-                        <div class="empty-icon">🔍</div>
+                        <div class="empty-icon">{% include 'catalog/_icon.html' with icon='search' %}</div>
                         <h3>Ничего не найдено</h3>
                         <p>Попробуйте изменить фильтры или поисковый запрос.</p>
                         <a href="{% url 'catalog:catalog' %}" class="btn btn-primary">Сбросить всё</a>

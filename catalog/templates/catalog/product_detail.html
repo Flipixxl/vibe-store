@@ -32,7 +32,7 @@
                 {% endif %}
 
                 <div class="detail-actions">
-                    <a href="{% url 'catalog:cart_add' product.id %}" class="btn btn-primary btn-lg">🛒 В корзину</a>
+                    <a href="{% url 'catalog:cart_add' product.id %}" class="btn btn-primary btn-lg">{% include 'catalog/_icon.html' with icon='cart' %} В корзину</a>
                     <a href="{% url 'catalog:catalog' %}" class="btn btn-ghost btn-lg">← В каталог</a>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                         <a href="{{ product.get_absolute_url }}" class="product-name">{{ product.name }}</a>
                         <div class="product-bottom">
                             <span class="price">{{ product.price|floatformat:0 }} <span class="price-suffix">₽</span></span>
-                            <a href="{% url 'catalog:cart_add' product.id %}" class="add-btn" title="В корзину">＋</a>
+                            <a href="{% url 'catalog:cart_add' product.id %}" class="add-btn" title="В корзину">{% include 'catalog/_icon.html' with icon='plus' %}</a>
                         </div>
                     </div>
                 </div>

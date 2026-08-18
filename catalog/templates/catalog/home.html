@@ -3,34 +3,36 @@
 
 {% block content %}
 <section class="hero">
+    <span class="hero-watermark" aria-hidden="true">VIBE</span>
     <div class="container">
         <div class="hero-grid">
             <div class="hero-copy">
+                <span class="tape reveal">Новый сезон · 2026</span>
                 <h1 class="reveal">
                     Всё нужное —
                     <span class="grad-text">в одном месте</span>
                 </h1>
                 <p class="hero-sub reveal delay-1">
-                    Электроника, одежда и товары для дома с неоновым сервисом.
-                    Оформление заказа за пару минут, доставка по всей стране.
+                    Электроника, одежда и товары для дома. Оформление заказа за пару минут,
+                    доставка по всей стране.
                 </p>
                 <div class="hero-cta reveal delay-2">
                     <a href="{% url 'catalog:catalog' %}" class="btn btn-primary">
-                        Смотреть каталог <span>→</span>
+                        Смотреть каталог {% include 'catalog/_icon.html' with icon='arrow' %}
                     </a>
                     <a href="{% url 'catalog:about' %}" class="btn btn-ghost">О магазине</a>
                 </div>
                 <div class="hero-stats reveal delay-3">
                     <div class="stat">
-                        <span class="stat-num grad-cyan" data-count="{{ categories|length }}">0</span>
+                        <span class="stat-num" data-count="{{ categories|length }}">0</span>
                         <span class="stat-label">категории</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-num grad-cyan" data-count="12" data-suffix="+">0</span>
+                        <span class="stat-num" data-count="12" data-suffix="+">0</span>
                         <span class="stat-label">товаров</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-num grad-cyan" data-count="24" data-suffix="/7">0</span>
+                        <span class="stat-num" data-count="24" data-suffix="/7">0</span>
                         <span class="stat-label">поддержка</span>
                     </div>
                 </div>
@@ -42,7 +44,7 @@
                     <div class="orbit-dot d1"></div>
                     <div class="orbit-dot d2"></div>
                     <div class="orbit-dot d3"></div>
-                    <div class="orbit-icon">VIBE</div>
+                    <div class="orbit-icon">✳</div>
                 </div>
             </div>
         </div>
@@ -52,12 +54,12 @@
 <div class="marquee">
     <div class="marquee-track">
         {% for i in "1234" %}
-        <div class="marquee-item"><span class="spark">✦</span> Бесплатная доставка от 3 000 ₽</div>
-        <div class="marquee-item"><span class="spark">✦</span> Возврат 14 дней</div>
-        <div class="marquee-item"><span class="spark">✦</span> Гарантия на технику</div>
-        <div class="marquee-item"><span class="spark">✦</span> Поддержка 24/7</div>
-        <div class="marquee-item"><span class="spark">✦</span> Оплата картой онлайн</div>
-        <div class="marquee-item"><span class="spark">✦</span> Низкие цены каждый день</div>
+        <div class="marquee-item"><span class="spark">✳</span> Бесплатная доставка от 3 000 ₽</div>
+        <div class="marquee-item"><span class="spark">✳</span> Возврат 14 дней</div>
+        <div class="marquee-item"><span class="spark">✳</span> Гарантия на технику</div>
+        <div class="marquee-item"><span class="spark">✳</span> Поддержка 24/7</div>
+        <div class="marquee-item"><span class="spark">✳</span> Оплата картой онлайн</div>
+        <div class="marquee-item"><span class="spark">✳</span> Низкие цены каждый день</div>
         {% endfor %}
     </div>
 </div>
@@ -71,13 +73,13 @@
         <a href="{% url 'catalog:catalog' %}?category={{ category.slug }}"
            class="category-card reveal delay-{{ forloop.counter }}">
             <span class="category-icon">
-                {% if category.slug == 'electronics' %}⚡
-                {% elif category.slug == 'clothes' %}👕
-                {% else %}🏠{% endif %}
+                {% if category.slug == 'electronics' %}{% include 'catalog/_icon.html' with icon='bolt' %}
+                {% elif category.slug == 'clothes' %}{% include 'catalog/_icon.html' with icon='tshirt' %}
+                {% else %}{% include 'catalog/_icon.html' with icon='house' %}{% endif %}
             </span>
             <h3>{{ category.name }}</h3>
             <span class="cat-count">{{ category.products.count }} товаров</span>
-            <span class="cat-arrow">→</span>
+            <span class="cat-arrow">{% include 'catalog/_icon.html' with icon='arrow' %}</span>
         </a>
         {% endfor %}
     </div>
@@ -86,7 +88,7 @@
 <section class="section container">
     <div class="section-head reveal">
         <h2 class="section-title"><span class="num">02</span>Хиты продаж</h2>
-        <a href="{% url 'catalog:catalog' %}" class="section-link">Все товары →</a>
+        <a href="{% url 'catalog:catalog' %}" class="section-link">Все товары {% include 'catalog/_icon.html' with icon='arrow' %}</a>
     </div>
     <div class="product-grid">
         {% for product in featured %}
@@ -99,13 +101,13 @@
                 <a href="{{ product.get_absolute_url }}" class="product-name">{{ product.name }}</a>
                 <div class="product-bottom">
                     <span class="price">{{ product.price|floatformat:0 }} <span class="price-suffix">₽</span></span>
-                    <a href="{% url 'catalog:cart_add' product.id %}" class="add-btn" title="В корзину">＋</a>
+                    <a href="{% url 'catalog:cart_add' product.id %}" class="add-btn" title="В корзину">{% include 'catalog/_icon.html' with icon='plus' %}</a>
                 </div>
             </div>
         </div>
         {% empty %}
         <div class="empty-state reveal">
-            <div class="empty-icon">📦</div>
+            <div class="empty-icon">{% include 'catalog/_icon.html' with icon='box' %}</div>
             <h3>Товары скоро появятся</h3>
             <p>Мы наполняем витрину новинками.</p>
         </div>
@@ -116,22 +118,22 @@
 <section class="container">
     <div class="feature-band">
         <div class="feature-mini reveal">
-            <span class="fm-icon">⚡</span>
+            <span class="fm-icon">{% include 'catalog/_icon.html' with icon='truck' %}</span>
             <h4>Быстрая доставка</h4>
             <p>Заказ за 1–3 дня по всей стране</p>
         </div>
         <div class="feature-mini reveal delay-1">
-            <span class="fm-icon">🛡️</span>
+            <span class="fm-icon">{% include 'catalog/_icon.html' with icon='shield' %}</span>
             <h4>Гарантия</h4>
             <p>Официальная гарантия на технику</p>
         </div>
         <div class="feature-mini reveal delay-2">
-            <span class="fm-icon">🔄</span>
+            <span class="fm-icon">{% include 'catalog/_icon.html' with icon='refresh' %}</span>
             <h4>Простой возврат</h4>
             <p>14 дней на возврат товара</p>
         </div>
         <div class="feature-mini reveal delay-3">
-            <span class="fm-icon">💬</span>
+            <span class="fm-icon">{% include 'catalog/_icon.html' with icon='chat' %}</span>
             <h4>Поддержка 24/7</h4>
             <p>Мы всегда на связи</p>
         </div>
@@ -140,7 +142,7 @@
     <div class="cta-band reveal">
         <h2>Готовы сделать заказ?</h2>
         <p>Выбирайте товары в каталоге, оформляйте заказ за пару минут — мы всё доставим.</p>
-        <a href="{% url 'catalog:catalog' %}" class="btn btn-primary btn-lg">Перейти в каталог →</a>
+        <a href="{% url 'catalog:catalog' %}" class="btn btn-primary btn-lg">Перейти в каталог {% include 'catalog/_icon.html' with icon='arrow' %}</a>
     </div>
 </section>
 {% endblock %}

@@ -5,7 +5,7 @@
 <section class="page">
     <div class="container">
         <div class="success-wrap reveal">
-            <div class="success-icon">✓</div>
+            <div class="success-icon">{% include 'catalog/_icon.html' with icon='check' %}</div>
             <h1 class="page-title" style="margin-bottom:8px;">Спасибо за заказ!</h1>
             <p class="page-sub">Заказ <strong style="color:var(--cyan);">№{{ order.pk }}</strong> успешно создан.
                 Мы свяжемся с вами для подтверждения.</p>
