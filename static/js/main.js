@@ -102,33 +102,4 @@
       if (alert) alert.remove();
     });
   });
-
-  /* ---------- Hero parallax ---------- */
-  var hero = document.querySelector(".hero");
-  if (hero && window.matchMedia("(prefers-reduced-motion: reduce)").matches === false) {
-    var orbit = hero.querySelector(".hero-orbit");
-    var icon = hero.querySelector(".orbit-icon");
-    window.addEventListener("mousemove", function (e) {
-      var x = (e.clientX / window.innerWidth - 0.5) * 2;
-      var y = (e.clientY / window.innerHeight - 0.5) * 2;
-      if (orbit) orbit.style.transform = "translate(" + (x * -14) + "px, " + (y * -14) + "px)";
-      if (icon) icon.style.transform = "translate(" + (x * 22) + "px, " + (y * 22) + "px)";
-    }, { passive: true });
-  }
-
-  /* ---------- Tilt effect on product cards ---------- */
-  var tiltEls = document.querySelectorAll("[data-tilt]");
-  if (tiltEls.length && window.matchMedia("(prefers-reduced-motion: reduce)").matches === false) {
-    tiltEls.forEach(function (card) {
-      card.addEventListener("mousemove", function (e) {
-        var rect = card.getBoundingClientRect();
-        var x = (e.clientX - rect.left) / rect.width - 0.5;
-        var y = (e.clientY - rect.top) / rect.height - 0.5;
-        card.style.transform = "perspective(900px) rotateY(" + (x * 7) + "deg) rotateX(" + (y * -7) + "deg) translateY(-6px)";
-      });
-      card.addEventListener("mouseleave", function () {
-        card.style.transform = "";
-      });
-    });
-  }
 })();

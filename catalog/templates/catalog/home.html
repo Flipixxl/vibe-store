@@ -36,13 +36,13 @@
                 </div>
             </div>
             <div class="hero-visual reveal reveal-zoom delay-2">
-                <div class="hero-orbit" data-parallax>
+                <div class="hero-orbit">
                     <div class="orbit-ring r1"></div>
                     <div class="orbit-ring r2"></div>
                     <div class="orbit-dot d1"></div>
                     <div class="orbit-dot d2"></div>
                     <div class="orbit-dot d3"></div>
-                    <div class="orbit-icon">🛍️</div>
+                    <div class="orbit-icon">VIBE</div>
                 </div>
             </div>
         </div>
@@ -99,7 +99,7 @@
                 <a href="{{ product.get_absolute_url }}" class="product-name">{{ product.name }}</a>
                 <div class="product-bottom">
                     <span class="price">{{ product.price|floatformat:0 }} <span class="price-suffix">₽</span></span>
-                    <a href="{% url 'catalog:cart_add' product.id %}" class="add-btn" title="В корзину" data-tilt>＋</a>
+                    <a href="{% url 'catalog:cart_add' product.id %}" class="add-btn" title="В корзину">＋</a>
                 </div>
             </div>
         </div>
